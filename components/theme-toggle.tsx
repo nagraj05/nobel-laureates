@@ -15,7 +15,7 @@ export function ThemeToggle() {
     <button
       type="button"
       onClick={toggleTheme}
-      className="grid size-9 place-items-center rounded-full border border-black/10 bg-white/45 text-foreground transition hover:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#b78a3d] dark:border-white/12 dark:bg-white/5 dark:hover:bg-white/10"
+      className="grid size-8 shrink-0 place-items-center rounded-full border border-black/10 bg-white/45 text-foreground transition hover:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#b78a3d] dark:border-white/12 dark:bg-white/5 dark:hover:bg-white/10 min-[400px]:size-9"
       aria-label="Toggle light and dark mode"
       title="Toggle light and dark mode"
     >

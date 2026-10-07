@@ -88,12 +88,24 @@
     @apply mb-3 font-sans text-xs font-semibold uppercase tracking-[0.2em] text-[#8b6422];
   }
   .section-title {
-    @apply font-heading text-3xl font-semibold tracking-[-0.025em] sm:text-4xl;
+    @apply font-heading text-2xl font-semibold tracking-[-0.025em] min-[400px]:text-3xl sm:text-4xl;
   }
   .nobel-grid {
     background-image: linear-gradient(to right, rgb(139 100 34 / 0.08) 1px, transparent 1px), linear-gradient(to bottom, rgb(139 100 34 / 0.08) 1px, transparent 1px);
     background-size: 48px 48px;
     mask-image: linear-gradient(to right, black, transparent 80%);
+  }
+}
+
+@keyframes archive-progress {
+  0% {
+    transform: translateX(-110%);
+  }
+  50% {
+    transform: translateX(55%);
+  }
+  100% {
+    transform: translateX(220%);
   }
 }
 
@@ -140,5 +152,10 @@
   }
   html {
     @apply font-serif;
+  }
+  html,
+  body {
+    max-width: 100%;
+    overflow-x: clip;
   }
 }

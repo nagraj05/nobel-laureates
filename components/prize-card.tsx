@@ -18,7 +18,7 @@ export function PrizeCard({ prize }: { prize: NobelPrize }) {
       <div className={`h-1 ${accents[code]}`} />
       <CardHeader className="pb-4">
         <div className="flex items-start justify-between gap-4">
-          <Badge className="border-[#b78a3d]/25 bg-[#b78a3d]/8 text-[#79571f] dark:text-primary">{prize.category.en}</Badge>
+          <Badge className="border-[#b78a3d]/25 bg-[#b78a3d]/8 text-[#79571f] dark:text-white">{prize.category.en}</Badge>
           <span className="font-heading text-2xl font-semibold text-[#997029] dark:text-primary">{prize.awardYear}</span>
         </div>
         <h3 className="pt-3 font-heading text-xl font-semibold leading-snug">{prize.categoryFullName.en}</h3>

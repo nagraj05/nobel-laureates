@@ -58,6 +58,17 @@ export async function getPrizes(options: {
   category?: NobelCategory;
   sort?: "asc" | "desc";
 } = {}): Promise<NobelPrize[]> {
+  const page = await getPrizesPage(options);
+  return page.prizes;
+}
+
+export async function getPrizesPage(options: {
+  limit?: number;
+  offset?: number;
+  year?: string;
+  category?: NobelCategory;
+  sort?: "asc" | "desc";
+} = {}) {
   const url = apiUrl(process.env.API_NOBEL_PRIZES || FALLBACK_PRIZES, {
     limit: String(options.limit ?? 24),
     offset: String(options.offset ?? 0),
@@ -66,7 +77,14 @@ export async function getPrizes(options: {
     sort: options.sort ?? "desc",
   });
   const data = await request<PrizeResponse>(url);
-  return data?.nobelPrizes ?? [];
+  const prizes = data?.nobelPrizes ?? [];
+
+  return {
+    prizes,
+    total: data?.meta?.count ?? prizes.length,
+    limit: data?.meta?.limit ?? options.limit ?? 24,
+    offset: data?.meta?.offset ?? options.offset ?? 0,
+  };
 }
 
 export async function getLaureates(options: {
