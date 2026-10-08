@@ -179,14 +179,6 @@ export default async function LaureatePage({
               <Award className="size-5" />
               <p className="eyebrow mb-0!">Nobel recognition</p>
             </div>
-            <h2 className="mt-3 section-title">
-              {isOrganisation ? "Prize history" : "A legacy recognised"}
-            </h2>
-            <p className="mt-4 max-w-2xl leading-7 text-muted-foreground">
-              {laureate.nobelPrizes?.length === 1
-                ? `${name} has received one Nobel Prize.`
-                : `${name} has received ${laureate.nobelPrizes?.length ?? 0} Nobel Prizes.`}
-            </p>
 
             <div className="mt-9 space-y-8">
               {laureate.nobelPrizes?.map((prize) => (
