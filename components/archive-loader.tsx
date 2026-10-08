@@ -20,21 +20,35 @@ export function ArchiveLoader({
     <div
       className={cn(
         "relative overflow-hidden",
-        isPage ? "min-h-[calc(100vh-4rem)] px-5 py-16 sm:px-8 sm:py-24" : "py-2",
+        isPage
+          ? "min-h-[calc(100vh-4rem)] px-5 py-16 sm:px-8 sm:py-24"
+          : "py-2",
       )}
       role="status"
       aria-live="polite"
       aria-busy="true"
     >
-      {isPage && <div className="pointer-events-none absolute inset-0 nobel-grid opacity-25" />}
+      {isPage && (
+        <div className="pointer-events-none absolute inset-0 nobel-grid opacity-25" />
+      )}
       <div className={cn("relative mx-auto", isPage && "max-w-7xl")}>
-        <div className={cn("flex items-center", isPage ? "flex-col text-center" : "mb-6 gap-4")}>
+        <div
+          className={cn(
+            "flex items-center",
+            isPage ? "flex-col text-center" : "mb-6 gap-4",
+          )}
+        >
           <NobelSeal small={!isPage} />
           <div className={cn(isPage && "mt-6")}>
             <p className="font-sans text-[10px] font-semibold uppercase tracking-[0.24em] text-[#8b6422] dark:text-primary">
               Nobel Prize archive
             </p>
-            <p className={cn("font-heading font-semibold", isPage ? "mt-2 text-2xl sm:text-3xl" : "mt-1 text-base")}>
+            <p
+              className={cn(
+                "font-heading font-semibold",
+                isPage ? "mt-2 text-2xl sm:text-3xl" : "mt-1 text-base",
+              )}
+            >
               {label}
             </p>
           </div>
@@ -46,7 +60,13 @@ export function ArchiveLoader({
           </div>
         )}
 
-        <div className={cn("grid gap-5 md:grid-cols-2 lg:grid-cols-3", isPage ? "mt-14" : "mt-0")} aria-hidden="true">
+        <div
+          className={cn(
+            "grid gap-5 md:grid-cols-2 lg:grid-cols-3",
+            isPage ? "mt-14" : "mt-0",
+          )}
+          aria-hidden="true"
+        >
           {Array.from({ length: count }, (_, index) => (
             <LoaderCard key={index} compact={compact} delay={index * 90} />
           ))}
@@ -59,13 +79,24 @@ export function ArchiveLoader({
 
 function NobelSeal({ small }: { small: boolean }) {
   return (
-    <div className={cn("relative grid shrink-0 place-items-center", small ? "size-12" : "size-20")} aria-hidden="true">
+    <div
+      className={cn(
+        "relative grid shrink-0 place-items-center",
+        small ? "size-12" : "size-20",
+      )}
+      aria-hidden="true"
+    >
       <div className="absolute inset-0 animate-[spin_7s_linear_infinite] rounded-full border border-dashed border-[#9a7028]/55 dark:border-primary/60" />
       <div className="absolute inset-[5px] rounded-full border border-[#9a7028]/20 bg-[#b78a3d]/8 dark:border-primary/20 dark:bg-primary/8" />
       <div className="absolute inset-[10px] grid place-items-center rounded-full bg-[#fffdf8] text-[#8b6422] shadow-sm dark:bg-card dark:text-primary">
         <Award className={small ? "size-4" : "size-6"} />
       </div>
-      <Sparkles className={cn("absolute -right-1 -top-1 animate-pulse text-[#9a7028] dark:text-primary", small ? "size-3" : "size-4")} />
+      <Sparkles
+        className={cn(
+          "absolute -right-1 -top-1 animate-pulse text-[#9a7028] dark:text-primary",
+          small ? "size-3" : "size-4",
+        )}
+      />
     </div>
   );
 }

@@ -26,7 +26,10 @@ export type LaureatePortrait = {
   pageUrl?: string;
 };
 
-function apiUrl(base: string | undefined, params: Record<string, string | undefined>) {
+function apiUrl(
+  base: string | undefined,
+  params: Record<string, string | undefined>,
+) {
   const url = new URL(base || "https://api.nobelprize.org/2.1");
 
   for (const [key, value] of Object.entries(params)) {
@@ -51,24 +54,28 @@ async function request<T>(url: URL): Promise<T | null> {
   }
 }
 
-export async function getPrizes(options: {
-  limit?: number;
-  offset?: number;
-  year?: string;
-  category?: NobelCategory;
-  sort?: "asc" | "desc";
-} = {}): Promise<NobelPrize[]> {
+export async function getPrizes(
+  options: {
+    limit?: number;
+    offset?: number;
+    year?: string;
+    category?: NobelCategory;
+    sort?: "asc" | "desc";
+  } = {},
+): Promise<NobelPrize[]> {
   const page = await getPrizesPage(options);
   return page.prizes;
 }
 
-export async function getPrizesPage(options: {
-  limit?: number;
-  offset?: number;
-  year?: string;
-  category?: NobelCategory;
-  sort?: "asc" | "desc";
-} = {}) {
+export async function getPrizesPage(
+  options: {
+    limit?: number;
+    offset?: number;
+    year?: string;
+    category?: NobelCategory;
+    sort?: "asc" | "desc";
+  } = {},
+) {
   const url = apiUrl(process.env.API_NOBEL_PRIZES || FALLBACK_PRIZES, {
     limit: String(options.limit ?? 24),
     offset: String(options.offset ?? 0),
@@ -87,20 +94,24 @@ export async function getPrizesPage(options: {
   };
 }
 
-export async function getLaureates(options: {
-  limit?: number;
-  offset?: number;
-  name?: string;
-} = {}): Promise<Laureate[]> {
+export async function getLaureates(
+  options: {
+    limit?: number;
+    offset?: number;
+    name?: string;
+  } = {},
+): Promise<Laureate[]> {
   const page = await getLaureatesPage(options);
   return page.laureates;
 }
 
-export async function getLaureatesPage(options: {
-  limit?: number;
-  offset?: number;
-  name?: string;
-} = {}) {
+export async function getLaureatesPage(
+  options: {
+    limit?: number;
+    offset?: number;
+    name?: string;
+  } = {},
+) {
   const url = apiUrl(process.env.API_LAUREATES || FALLBACK_LAUREATES, {
     limit: String(options.limit ?? 24),
     offset: String(options.offset ?? 0),
@@ -117,42 +128,48 @@ export async function getLaureatesPage(options: {
   };
 }
 
-export const getLaureate = cache(async (id: string): Promise<Laureate | null> => {
-  // Use the compact v2.1 detail endpoint instead of caching the full collection.
-  const detailUrl = new URL(`${LAUREATE_DETAILS}/${encodeURIComponent(id)}`);
-  const laureates = await request<Laureate[]>(detailUrl);
-  return laureates?.[0] ?? null;
-});
+export const getLaureate = cache(
+  async (id: string): Promise<Laureate | null> => {
+    // Use the compact v2.1 detail endpoint instead of caching the full collection.
+    const detailUrl = new URL(`${LAUREATE_DETAILS}/${encodeURIComponent(id)}`);
+    const laureates = await request<Laureate[]>(detailUrl);
+    return laureates?.[0] ?? null;
+  },
+);
 
-export const getLaureatePortrait = cache(async (slug?: string): Promise<LaureatePortrait | null> => {
-  if (!slug) return null;
+export const getLaureatePortrait = cache(
+  async (slug?: string): Promise<LaureatePortrait | null> => {
+    if (!slug) return null;
 
-  try {
-    const url = new URL(`https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(slug)}`);
-    const response = await fetch(url, {
-      headers: {
-        Accept: "application/json",
-        "Api-User-Agent": "TheNobelArchive/1.0 (educational archive)",
-      },
-      next: { revalidate: 60 * 60 * 24 * 7 },
-    });
+    try {
+      const url = new URL(
+        `https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(slug)}`,
+      );
+      const response = await fetch(url, {
+        headers: {
+          Accept: "application/json",
+          "Api-User-Agent": "TheNobelArchive/1.0 (educational archive)",
+        },
+        next: { revalidate: 60 * 60 * 24 * 7 },
+      });
 
-    if (!response.ok) return null;
-    const summary = (await response.json()) as WikipediaSummary;
-    const image = summary.thumbnail;
-    if (!image?.source || !image.width || !image.height) return null;
+      if (!response.ok) return null;
+      const summary = (await response.json()) as WikipediaSummary;
+      const image = summary.thumbnail;
+      if (!image?.source || !image.width || !image.height) return null;
 
-    return {
-      src: image.source,
-      width: image.width,
-      height: image.height,
-      pageUrl: summary.content_urls?.desktop?.page,
-    };
-  } catch (error) {
-    unstable_rethrow(error);
-    return null;
-  }
-});
+      return {
+        src: image.source,
+        width: image.width,
+        height: image.height,
+        pageUrl: summary.content_urls?.desktop?.page,
+      };
+    } catch (error) {
+      unstable_rethrow(error);
+      return null;
+    }
+  },
+);
 
 export function laureateName(laureate: Laureate | PrizeLaureateLike) {
   return (

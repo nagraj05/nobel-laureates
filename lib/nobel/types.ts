@@ -19,13 +19,7 @@ export type ApiLink = {
   class?: string[];
 };
 
-export type NobelCategory =
-  | "che"
-  | "eco"
-  | "lit"
-  | "pea"
-  | "phy"
-  | "med";
+export type NobelCategory = "che" | "eco" | "lit" | "pea" | "phy" | "med";
 
 export type PrizeLaureate = {
   id: string;
