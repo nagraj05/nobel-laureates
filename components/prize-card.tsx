@@ -2,17 +2,9 @@ import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { categoryStyles } from "@/lib/nobel/categories";
 import { categoryCode, laureateName } from "@/lib/nobel/data";
 import type { NobelPrize } from "@/lib/nobel/types";
-
-const accents: Record<string, string> = {
-  che: "bg-emerald-700",
-  eco: "bg-sky-700",
-  lit: "bg-rose-800",
-  pea: "bg-blue-700",
-  phy: "bg-amber-600",
-  med: "bg-red-800",
-};
 
 export function PrizeCard({ prize }: { prize: NobelPrize }) {
   const code = categoryCode(prize.category.en) ?? "phy";
@@ -20,7 +12,7 @@ export function PrizeCard({ prize }: { prize: NobelPrize }) {
     ?.motivation?.en;
   return (
     <Card className="group flex h-full flex-col overflow-hidden border-black/10 bg-[#fffdf8] transition duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-black/5 dark:border-white/10 dark:bg-card dark:hover:shadow-black/30">
-      <div className={`h-1 ${accents[code]}`} />
+      <div className={`h-1 ${categoryStyles[code].accent}`} />
       <CardHeader className="pb-4">
         <div className="flex items-start justify-between gap-4">
           <Badge className="border-[#b78a3d]/25 bg-[#b78a3d]/8 text-[#79571f] dark:text-white">

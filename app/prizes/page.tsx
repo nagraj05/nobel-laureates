@@ -3,6 +3,7 @@ import Link from "next/link";
 import { ChevronLeft, ChevronRight, Filter } from "lucide-react";
 import { redirect } from "next/navigation";
 import { PrizeCard } from "@/components/prize-card";
+import { categoryStyles } from "@/lib/nobel/categories";
 import { getPrizesPage } from "@/lib/nobel/data";
 import type { NobelCategory } from "@/lib/nobel/types";
 import { cn } from "@/lib/utils";
@@ -86,9 +87,13 @@ export default async function PrizesPage({
               })}
               className={cn(
                 "whitespace-nowrap rounded-full border px-3 py-1.5 font-sans text-xs font-semibold transition",
-                selected === item.value
-                  ? "border-[#8b6422] bg-[#8b6422] text-white dark:border-primary dark:bg-primary dark:text-primary-foreground"
-                  : "border-black/10 bg-white/40 hover:bg-white dark:border-white/10 dark:bg-white/5 dark:hover:bg-white/10",
+                item.value === "all"
+                  ? selected === "all"
+                    ? "border-[#8b6422] bg-[#8b6422] text-white"
+                    : "border-black/10 bg-white/40 hover:bg-white dark:border-white/10 dark:bg-white/5 dark:hover:bg-white/10"
+                  : selected === item.value
+                    ? categoryStyles[item.value].filterActive
+                    : "border-black/10 bg-white/40 hover:bg-white dark:border-white/10 dark:bg-white/5 dark:hover:bg-white/10",
               )}
             >
               {item.label}
