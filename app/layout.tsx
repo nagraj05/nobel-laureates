@@ -16,7 +16,7 @@ const robotoSlab = Roboto_Slab({
 });
 
 export const metadata: Metadata = {
-  title: { default: "The Nobel Archive", template: "%s · The Nobel Archive" },
+  title: { default: "The Nobel Prize", template: "%s · The Nobel Prize" },
   description:
     "Explore Nobel Prizes, laureates, and more than a century of world-changing achievement.",
 };
