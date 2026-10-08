@@ -255,13 +255,6 @@ function PrizeDetails({ prize }: { prize: LaureatePrize }) {
           )}
         </div>
 
-        {prize.prizeAmountAdjusted && (
-          <p className="mt-3 font-sans text-xs text-muted-foreground">
-            Equivalent to {formatSek(prize.prizeAmountAdjusted)} in today’s
-            adjusted value.
-          </p>
-        )}
-
         {prize.affiliations?.length ? (
           <div className="mt-9">
             <p className="font-sans text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground">
@@ -295,7 +288,7 @@ function PrizeDetails({ prize }: { prize: LaureatePrize }) {
         ) : null}
 
         {(factsLink || summaryLink) && (
-          <div className="mt-8 flex flex-wrap gap-3 border-t border-black/8 pt-6 dark:border-white/10">
+          <div className="mt-4 flex flex-wrap gap-3">
             {factsLink && (
               <ActionLink
                 href={factsLink.href}
