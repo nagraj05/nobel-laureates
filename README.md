@@ -32,7 +32,7 @@ Browse the prizes. Meet the laureates. Explore more than a century of achievemen
 
 ## ✦ What is The Nobel Archive?
 
-The Nobel Archive is a responsive, browser-based guide to Nobel Prizes and Nobel Laureates. It presents official Nobel Prize data in an editorial interface designed for discovery rather than as a raw dataset.
+Nobel Laureates is a responsive, browser-based guide to Nobel Prizes and Nobel Laureates. It presents official Nobel Prize data in an editorial interface designed for discovery rather than as a raw dataset.
 
 Explore prizes by category and year, search for individual laureates, and open detailed profiles containing biographies, award motivations, affiliations, prize shares, monetary values, reference links, and portraits.
 
